@@ -1,0 +1,21 @@
+You:
+“Hi, is this the manager or the person who handles cleaning services?”
+
+(If yes, continue. If no, ask for the right person or best time to call.)
+
+You:
+“Great! My name is Chelsea, and I just started a local cleaning company here in [City]. I’m reaching out to see if you’re happy with your current cleaning service or if you might be interested in a professional, reliable cleaning option.”
+
+(Pause and listen.)
+
+If they seem interested or open:
+“Perfect. We offer thorough and flexible cleaning services for offices, retail spaces, and other commercial areas. Since we’re new, we’re offering personalized service and competitive pricing to build relationships with local businesses. I’d be happy to give you a quick quote or even stop by for a short walkthrough—whichever works best for you.”
+
+If they say they already have a cleaner:
+“I understand completely. If anything ever changes or you’d like a backup option, I’d be happy to provide a no-obligation quote. It can’t hurt to have an option on hand.”
+
+If they agree to a quote or walkthrough:
+“Awesome. When would be a good time this week for me to stop by?”
+
+If they say no:
+“No problem at all. Thank you so much for your time, and I hope we can connect in the future.”
