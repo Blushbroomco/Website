@@ -1,187 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Blush & Broom Co.</title>
   <style>
-    /* Reset & body */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fdf6f9;
-      color: #333;
-      line-height: 1.6;
+    :root{
+      --accent:#f06292;
+      --accent-2:#f48fb1;
+      --bg:#fdf6f9;
+      --card:#ffffff;
+      --muted:#666;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#222;
+      -webkit-font-smoothing:antialiased;
     }
 
-    /* Header */
+    /* Header + Hero */
     header {
-      background: linear-gradient(90deg, #f9c1d9, #f48fb1);
-      padding: 40px 20px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background: linear-gradient(90deg,var(--accent-2),var(--accent));
+      color:white;
+      padding:20px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
     }
-    header img {
-      max-width: 180px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    header .top{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    }
+    header img.logo{ max-width:140px; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.15); }
+    header h1{ margin:0; font-size:1.9rem; text-shadow:0 2px 6px rgba(0,0,0,0.15) }
 
-    /* Navigation */
-    nav {
-      background: #f06292;
-      display: flex;
-      justify-content: center;
-      padding: 12px 0;
+    /* Hero carousel container */
+    .hero {
+      position:relative;
+      height:300px;
+      max-width:1100px;
+      margin:18px auto 0;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 6px 20px rgba(0,0,0,0.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg, rgba(255,255,255,0.0), rgba(255,255,255,0.02));
     }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 20px;
-      font-weight: 600;
-      font-size: 1.1em;
-      padding: 6px 12px;
-      border-radius: 5px;
-      transition: 0.3s;
-    }
-    nav a:hover {
-      background: rgba(255,255,255,0.2);
-    }
+    .hero .slides{ position:absolute; inset:0; display:flex; transition:transform .6s ease; }
+    .hero .slides img{ width:100%; height:100%; object-fit:cover; flex-shrink:0; }
 
-    /* Promo Banner */
-    .promo {
-      background: #ffebf0;
-      padding: 25px 20px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.3em;
-      color: #d81b60;
-      border-bottom: 2px solid #f06292;
+    /* hero overlay content */
+    .hero .overlay{
+      position:relative;
+      z-index:2;
+      color:#fff;
+      text-align:center;
+      padding:12px 20px;
+      width:100%;
+      max-width:900px;
     }
+    .hero .overlay h2{ font-size:2rem; margin:0 0 8px }
+    .hero .overlay p{ margin:0 0 12px; color:rgba(255,255,255,0.95) }
 
-    /* Sections */
-    .section {
-      padding: 50px 20px;
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
-      margin-bottom: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: transform 0.3s;
+    .hero .cta-row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap }
+    .btn{
+      background:rgba(0,0,0,0.12);
+      border:none;
+      color:white;
+      padding:10px 18px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      transition:transform .18s ease, background .18s;
     }
-    .section:hover {
-      transform: translateY(-5px);
-    }
-    h2 {
-      color: #f06292;
-      margin-bottom: 15px;
-      font-size: 1.8em;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-      font-size: 1.1em;
-    }
+    .btn:hover{ transform:translateY(-3px); background:rgba(0,0,0,0.22) }
 
-    /* Buttons */
-    button.call-button {
-      background: #f06292;
-      color: #fff;
-      border: none;
-      padding: 12px 25px;
-      margin-top: 15px;
-      cursor: pointer;
-      font-size: 1.1em;
-      border-radius: 8px;
-      box-shadow: 0 3px 5px rgba(0,0,0,0.2);
-      transition: 0.3s;
+    /* nav */
+    nav{
+      display:flex; justify-content:center; gap:18px; padding:10px 8px; margin-top:12px;
     }
-    button.call-button:hover {
-      background: #f48fb1;
-      transform: scale(1.05);
-    }
+    nav a{ color:white; text-decoration:none; font-weight:700; padding:8px 12px; border-radius:8px; background:rgba(255,255,255,0.06) }
+    nav a:hover{ background:rgba(255,255,255,0.12) }
 
-    /* Footer */
-    footer {
-      background: linear-gradient(90deg, #f9c1d9, #f48fb1);
-      padding: 25px;
-      text-align: center;
-      color: #fff;
-      font-weight: 600;
-    }
+    /* Main areas */
+    main{ max-width:1100px; margin:26px auto; padding:0 16px 80px; }
+    .promo{ background:#fff3f7; color:var(--accent); padding:12px 16px; border-radius:10px; text-align:center; font-weight:700; box-shadow:0 3px 8px rgba(0,0,0,0.04) }
 
-    /* Links in Contact */
-    a.contact-link {
-      color: #f06292;
-      font-weight: 600;
-      transition: 0.3s;
+    .grid{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:18px;
     }
-    a.contact-link:hover {
-      color: #f48fb1;
-    }
+    @media (max-width:900px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+    @media (max-width:620px){ .grid{ grid-template-columns:1fr } }
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-      }
-      nav a {
-        margin: 8px 0;
-      }
-      header h1 {
-        font-size: 2em;
-      }
+    .card{
+      background:var(--card); padding:18px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      transition:transform .22s ease, box-shadow .22s ease;
     }
+    .card:hover{ transform:translateY(-6px); box-shadow:0 10px 26px rgba(0,0,0,0.08); }
+    .card h3{ margin:0 0 10px; color:var(--accent) }
+    .card p{ margin:0; color:var(--muted) }
+    .card .more{ margin-top:12px; display:flex; gap:8px; align-items:center; }
+
+    .small-btn{ background:var(--accent); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700 }
+    .small-btn:hover{ background:var(--accent-2) }
+
+    /* image carousel small */
+    .mini-carousel{ display:flex; gap:8px; align-items:center; margin-top:12px }
+    .mini-carousel img{ width:100%; height:120px; object-fit:cover; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06) }
+    .mini-carousel .frame{ flex:1 1 0; overflow:hidden; }
+
+    /* contact area */
+    .contact{
+      margin-top:22px; display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;
+    }
+    .contact .left{ flex:1; min-width:260px }
+    .contact .right{ width:320px; min-width:250px }
+
+    .contact a{ color:var(--accent); font-weight:700; text-decoration:none }
+    .contact a:hover{ color:var(--accent-2) }
+
+    footer{ text-align:center; padding:20px; color:#fff; background:linear-gradient(90deg,var(--accent-2),var(--accent)); margin-top:28px; border-radius:12px; }
+
+    /* modal */
+    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:40 }
+    .modal{ background:white; width:95%; max-width:520px; padding:18px; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,0.3) }
+    .modal h4{ margin:0 0 10px }
+    .field{ margin-bottom:10px }
+    .field label{ display:block; font-size:0.9rem; color:#333; margin-bottom:6px }
+    .field input, .field textarea{
+      width:100%; padding:10px; border-radius:8px; border:1px solid #e6e6e6; font-size:1rem;
+    }
+    .modal .actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:12px }
+    .close-btn{ background:#eee; border:0; padding:8px 12px; border-radius:8px; cursor:pointer }
+
+    /* small helper */
+    .muted{ color:var(--muted) }
   </style>
 </head>
 <body>
+
   <header>
-    <img src="logo.png" alt="Blush & Broom Co. Logo">
-    <h1>Blush & Broom Co.</h1>
+    <div class="top" role="banner">
+      <img class="logo" src="logo.png" alt="Blush & Broom Co logo" />
+      <div>
+        <h1>Blush & Broom Co.</h1>
+        <div class="muted">Professional cleaning that sparkles</div>
+      </div>
+    </div>
+
+    <nav role="navigation" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+      <button class="btn" id="open-book">Book Now</button>
+    </nav>
+
+    <div class="hero" aria-hidden="false">
+      <div class="slides" id="slides">
+        <!-- Provide hero1.jpg, hero2.jpg, hero3.jpg in repo root -->
+        <img src="hero1.jpg" alt="Clean living room image" onerror="this.style.background='#f8c1d6'; this.src='';" />
+        <img src="hero2.jpg" alt="Sparkling kitchen image" onerror="this.style.background='#f6a4c1'; this.src='';" />
+        <img src="hero3.jpg" alt="Clean bathroom image" onerror="this.style.background='#f48fb1'; this.src='';" />
+      </div>
+
+      <div class="overlay" aria-hidden="false">
+        <h2>We make homes glow</h2>
+        <p>20% off for new clients — safe, friendly, and thorough home cleanings</p>
+        <div class="cta-row">
+          <button class="btn" onclick="location.href='tel:4692716725'">Call 469-271-6725</button>
+          <button class="btn" onclick="location.href='tel:4693239606'">Call 469-323-9606</button>
+          <button class="btn" id="open-book-2">Book online</button>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <nav>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <main>
+    <div class="promo">New clients get 20% off — mention promo code: BLUSH20</div>
 
-  <div class="promo">
-    🎉 20% off for new clients! 🎉
-  </div>
+    <section id="services" class="grid" aria-labelledby="services-title">
+      <div class="card">
+        <h3>Standard Cleaning</h3>
+        <p class="muted">Weekly, bi-weekly, or monthly visits. Includes dusting, vacuum, mopping, and bathrooms.</p>
+        <div class="more">
+          <button class="small-btn" data-expand="s1">More details</button>
+        </div>
+        <div id="s1" class="details" style="display:none; margin-top:10px; color:var(--muted)">
+          <p>Approx 60–90 minutes depending on home size. Custom add-ons available.</p>
+        </div>
+        <div class="mini-carousel">
+          <div class="frame"><img src="before1.jpg" alt="before cleaning" onerror="this.style.opacity=0.15;"/></div>
+          <div class="frame"><img src="hero1.jpg" alt="after cleaning" onerror="this.style.opacity=0.15;"/></div>
+        </div>
+      </div>
 
-  <div class="section" id="services">
-    <h2>Our Services</h2>
-    <ul>
-      <li>Standard Cleaning</li>
-      <li>Deep Cleaning</li>
-      <li>Move-In / Move-Out Cleaning</li>
-      <li>Special Event Cleaning</li>
-    </ul>
-  </div>
+      <div class="card">
+        <h3>Deep Cleaning</h3>
+        <p class="muted">A top-to-bottom refresh for seasonal clean or before guests arrive.</p>
+        <div class="more">
+          <button class="small-btn" data-expand="s2">More details</button>
+        </div>
+        <div id="s2" class="details" style="display:none; margin-top:10px; color:var(--muted)">
+          <p>Extra attention to baseboards, vents, inside appliances, and grout lines.</p>
+        </div>
+        <div class="mini-carousel">
+          <div class="frame"><img src="hero2.jpg" alt="deep clean example" onerror="this.style.opacity=0.15;"/></div>
+        </div>
+      </div>
 
-  <div class="section" id="contact">
-    <h2>Contact Us</h2>
-    <p>Phone: <a href="tel:4692716725" class="contact-link">469-271-6725</a> or <a href="tel:4693239606" class="contact-link">469-323-9606</a></p>
-    <p>Email: <a href="mailto:chelsea@blushbroomco.com" class="contact-link">chelsea@blushbroomco.com</a>, 
-    <a href="mailto:stephanie@blushbroomco.com" class="contact-link">stephanie@blushbroomco.com</a></p>
-    <button class="call-button" onclick="window.location.href='tel:4692716725'">Call Now</button>
-  </div>
+      <div class="card">
+        <h3>Move-in / Move-out</h3>
+        <p class="muted">Efficient, thorough clean so you can focus on the move.</p>
+        <div class="more">
+          <button class="small-btn" data-expand="s3">More details</button>
+        </div>
+        <div id="s3" class="details" style="display:none; margin-top:10px; color:var(--muted)">
+          <p>Flexible scheduling, deep sanitation, and checklist-based service.</p>
+        </div>
+        <div class="mini-carousel">
+          <div class="frame"><img src="hero3.jpg" alt="move clean sample" onerror="this.style.opacity=0.15;"/></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:20px;">
+      <div class="contact">
+        <div class="left card">
+          <h3>Contact & Quick actions</h3>
+          <p class="muted">Call us, email, or book a cleaning right now.</p>
+          <p>Phone: <a href="tel:4692716725">469-271-6725</a> or <a href="tel:4693239606">469-323-9606</a></p>
+          <p>Email: <a href="mailto:chelsea@blushbroomco.com">chelsea@blushbroomco.com</a>, <a href="mailto:stephanie@blushbroomco.com">stephanie@blushbroomco.com</a></p>
+          <div style="margin-top:12px;">
+            <button class="small-btn" onclick="window.location.href='mailto:chelsea@blushbroomco.com?subject=Booking%20Request'">Email to book</button>
+            <button class="small-btn" id="open-book-3">Book now</button>
+          </div>
+        </div>
+
+        <div class="right card">
+          <h3>Hours</h3>
+          <p class="muted">Mon - Sat: 8am - 6pm<br>Sun: Closed</p>
+          <h4 style="margin-top:12px">Service Area</h4>
+          <p class="muted">Serving the greater local area. Travel fees apply outside the zone.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    © 2025 Blush & Broom Co.
+    © 2025 Blush & Broom Co. — <a href="mailto:chelsea@blushbroomco.com" style="color:white; text-decoration:underline">Contact</a>
   </footer>
+
+  <!-- Modal booking form -->
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <h4>Book a cleaning</h4>
+      <p class="muted">Fill out the form and we'll open an email prefilled so you can send the request.</p>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" type="text" placeholder="Jamie" />
+      </div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input id="phone" type="tel" placeholder="469-123-4567" />
+      </div>
+      <div class="field">
+        <label for="service">Service</label>
+        <select id="service">
+          <option>Standard Cleaning</option>
+          <option>Deep Cleaning</option>
+          <option>Move-In / Move-Out</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="notes">Notes (date, address, details)</label>
+        <textarea id="notes" rows="3" placeholder="Preferred date, address, special requests"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="close-btn" id="modal-close">Cancel</button>
+        <button class="small-btn" id="send-book">Send booking email</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Hero slides auto-rotate
+    (function(){
+      const slides = document.getElementById('slides');
+      const count = slides.children.length;
+      let idx = 0;
+      function show(i){
+        slides.style.transform = `translateX(${-i * 100}%)`;
+      }
+      let timer = setInterval(()=>{
+        idx = (idx + 1) % count;
+        show(idx);
+      }, 4000);
+
+      // Pause on hover
+      const hero = document.querySelector('.hero');
+      hero.addEventListener('mouseenter', ()=> clearInterval(timer));
+      hero.addEventListener('mouseleave', ()=> { timer = setInterval(()=>{ idx = (idx + 1) % count; show(idx); }, 4000); });
+
+      // small keyboard nav (left/right arrows)
+      document.addEventListener('keydown', (e)=>{
+         if(e.key === 'ArrowRight'){ idx = (idx + 1) % count; show(idx); }
+         if(e.key === 'ArrowLeft'){ idx = (idx - 1 + count) % count; show(idx); }
+      });
+    })();
+
+    // Expand service details
+    document.querySelectorAll('[data-expand]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-expand');
+        const el = document.getElementById(id);
+        if(!el) return;
+        if(el.style.display === 'none' || el.style.display === ''){
+          el.style.display = 'block';
+          btn.textContent = 'Hide details';
+        } else {
+          el.style.display = 'none';
+          btn.textContent = 'More details';
+        }
+      });
+    });
+
+    // Modal booking handling
+    const modal = document.getElementById('modal');
+    const openButtons = [document.getElementById('open-book'), document.getElementById('open-book-2'), document.getElementById('open-book-3')];
+    openButtons.forEach(b=>{ if(b) b.addEventListener('click', openModal) });
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+
+    function openModal(){
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden','false');
+      document.getElementById('name').focus();
+    }
+    function closeModal(){
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    // Send booking: opens the email client with prefilled message
+    document.getElementById('send-book').addEventListener('click', ()=>{
+      const name = encodeURIComponent(document.getElementById('name').value || 'No name');
+      const phone = encodeURIComponent(document.getElementById('phone').value || '');
+      const service = encodeURIComponent(document.getElementById('service').value || '');
+      const notes = encodeURIComponent(document.getElementById('notes').value || '');
+      const subject = encodeURIComponent('Booking request from website - ' + (name || 'New client'));
+      const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nService: ${service}\nNotes: ${notes}\n\nPlease reply to schedule.`);
+      // opens new email to chelsea
+      const mailto = `mailto:chelsea@blushbroomco.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+      // close modal after opening email
+      setTimeout(closeModal, 300);
+    });
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ closeModal(); } });
+
+  </script>
 </body>
 </html>
